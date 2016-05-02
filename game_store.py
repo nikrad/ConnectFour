@@ -124,7 +124,7 @@ class GameStore(object):
         """
         # TODO(nikrad): add locking
         game = get_value(game_id)
-        if game["winner"]:
+        if game["winner"] is not None:
             raise GameOverError("The game has ended")
 
         position = game["player_positions"].get(player_id)
