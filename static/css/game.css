@@ -1,0 +1,29 @@
+.board {
+    background-color: #1e90ff;
+}
+
+.status_bar {
+    color: #666666;
+}
+
+.cell_dimension {
+    height: 50px;
+    width: 50px;
+}
+
+.disc {
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.disc.empty {
+    background-color: #ffffff;
+}
+
+.disc.player1 {
+    background-color: #ffff00;
+}
+
+.disc.player2 {
+    background-color: #ff0000;
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Connect Four!</title>
+        <link rel="stylesheet" href="/static/css/game.css" />
+        <script type="text/javascript" src="static/js/socket.io.js"></script>
+        <script type="text/javascript" src="static/js/react.min.js"></script>
+        <script type="text/javascript" src="static/js/react-dom.min.js"></script>
+        <script type="text/javascript" src="static/js/classnames.js"></script>
+    </head>
+    <body>
+        <h1>Connect Four!</h1>
+        <div id="game"></div>
+        <script type="text/javascript" src="static/js/game.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            window.game = new Game({{ position|tojson|safe }});
+    </script>
+    </body>
+</html>
