@@ -2,6 +2,8 @@
 
 A bare-bones, web-based Connect Four game using WebSockets.
 
+![Connect Four demo](demo.gif)
+
 ## Supported platforms
 
 The app has been tested using:
@@ -25,4 +27,6 @@ Check that your Redis server is running and update `REDIS_CONNECTION_SETTINGS` i
 python app.py
 ```
 
-Lastly, visit `http://localhost:5000` in your browser to start a new game. Have fun!
+Lastly, visit `http://localhost:5000` in your browser to start a new game. To connect player 2, visit the game URL in another browser (or Chrome profile).
+
+Have fun!
