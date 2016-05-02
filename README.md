@@ -13,18 +13,16 @@ The app has been tested using:
 
 ## How to run
 
-1. Make sure you've installed the app's dependencies from the `requirements.txt` file:
+First, make sure you've installed the app's dependencies from the `requirements.txt` file:
 
 ```
 pip install -r requirements.txt
 ```
 
-2. Check that your Redis server is running and update `REDIS_CONNECTION_SETTINGS` in `game_store.py` if necessary.
-
-3. Run the Flask web server:
+Check that your Redis server is running and update `REDIS_CONNECTION_SETTINGS` in `game_store.py` if necessary. Then run the Flask web server:
 
 ```
 python app.py
 ```
 
-4. Visit `http://localhost:5000` in your browser to start a new game. Have fun!
+Lastly, visit `http://localhost:5000` in your browser to start a new game. Have fun!
