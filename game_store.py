@@ -106,6 +106,29 @@ class GameStore(object):
         return new_game_id
 
     @staticmethod
+    def restart(game_id):
+        """Restart a game after it ends.
+
+        Args:
+            game_id (str): uuid of the game
+
+        Returns:
+            The latest game data dictionary
+        """
+        game = get_value(game_id)
+        assert game
+        assert game["winner"] is not None
+
+        game["grid"] = Board().grid
+        game["position_with_turn"] = 1
+        game["winner"] = None
+
+        # TODO(nikrad): add locking
+        set_value(game["game_id"], game)
+
+        return game
+
+    @staticmethod
     def play_turn(game_id, player_id, column_index):
         """Play a Connect Four turn.
 

@@ -116,18 +116,26 @@ var StatusBar = React.createClass({
 
     propTypes: {
         gameState: React.PropTypes.instanceOf(GameState),
+        onClickRestart: React.PropTypes.func.isRequired,
         playerPosition: React.PropTypes.number.isRequired
     },
 
+    onClickRestart: function (e) {
+        e.preventDefault();
+        this.props.onClickRestart();
+    },
+
     render: function () {
-        var message;
+        var message, restart;
         if (this.props.gameState.winner !== null) {
             // The game is over
             if (this.props.gameState.winner === 0) {
-                message = 'The game ended with no winner.'
+                message = 'The game ended with no winner. '
             } else {
-                message = this.props.playerPosition === this.props.gameState.winner ? "You won!" : "Sorry, you lost.";
+                message = this.props.playerPosition === this.props.gameState.winner ? "You won! " : "Sorry, you lost. ";
             }
+
+            restart = React.createElement('a', {href: "#", onClick: this.onClickRestart}, 'Play again.');
         } else {
             if (this.props.gameState.playerCount === 2) {
                 // The game is on!
@@ -142,9 +150,13 @@ var StatusBar = React.createClass({
                 // Waiting for other player to join
                 message = 'Waiting for another player to join.';
             }
+
+            restart = React.createElement('span', {}, '');
         }
 
-        return React.createElement('p', {className: 'status_bar'}, message);
+        var messageSpan = React.createElement('span', {}, message);
+
+        return React.createElement('p', {className: 'status_bar'}, [messageSpan, restart]);
     }
 });
 
@@ -155,6 +167,7 @@ var GameView = React.createClass({
     propTypes: {
         gameState: React.PropTypes.instanceOf(GameState),
         onClickCell: React.PropTypes.func.isRequired,
+        onClickRestart: React.PropTypes.func.isRequired,
         playerColor: React.PropTypes.string.isRequired,
         playerPosition: React.PropTypes.number.isRequired
     },
@@ -168,6 +181,7 @@ var GameView = React.createClass({
             React.createElement(StatusBar, {
                 key: 'status-bar',
                 gameState: this.props.gameState,
+                onClickRestart: this.props.onClickRestart,
                 playerPosition: this.props.playerPosition
             }),
             React.createElement(Board, {
@@ -213,6 +227,7 @@ class Game {
             React.createElement(GameView, {
                 gameState: gameState,
                 onClickCell: this.dropDisc.bind(this),
+                onClickRestart: this.restart.bind(this),
                 playerColor: this.playerColor,
                 playerPosition: this.playerPosition
             }),
@@ -224,5 +239,10 @@ class Game {
         console.log('Playing disc in column ' + columnIndex);
         var json = JSON.stringify({'column_index': columnIndex});
         this.socket.emit('drop_disc', json);
+    }
+
+    restart () {
+        console.log('Restarting game');
+        this.socket.emit('restart');
     }
 }

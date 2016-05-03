@@ -129,6 +129,19 @@ def handle_drop_disc(json_data):
         emit("alert", json.dumps(data))
 
 
+@socketio.on('restart')
+def handle_restart():
+    game, player_id = authenticate(session)
+    if not game:
+        print('Invalid connection. Disconnecting!')
+        return disconnect()
+
+    game_id = game["game_id"]
+    game = GameStore.restart(game_id)
+    json_data = json_game_state(game)
+    emit('game_state', json_data, room=game_id)
+
+
 @socketio.on('disconnect')
 def handle_disconnect():
     game, player_id = authenticate(session)
